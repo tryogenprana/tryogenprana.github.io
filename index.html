@@ -7,84 +7,87 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      overflow: hidden;
       font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #003366, #000814);
-      perspective: 800px;
-      color: #dff6ff;
+      overflow-x: hidden;
+      background: #000814;
+      color: #e6f7ff;
     }
 
-    .scene {
-      width: 100%;
-      height: 100%;
+    /* Scroll sections */
+    section {
       position: relative;
-      transform-style: preserve-3d;
-      animation: slowDrift 25s linear infinite;
+      height: 140vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    @keyframes slowDrift {
-      0% { transform: rotateY(0deg); }
-      50% { transform: rotateY(6deg); }
-      100% { transform: rotateY(0deg); }
+    /* Parallax layers */
+    .layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+    }
+
+    /* Deep background image (slowest) */
+    .bg {
+      background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
+      z-index: 1;
+    }
+
+    /* Blue overlay for depth */
+    .overlay {
+      background: radial-gradient(circle at center, rgba(0,20,60,0.5), rgba(0,0,0,0.85));
+      z-index: 2;
     }
 
     /* Light rays */
-    .light {
-      position: absolute;
-      width: 200%;
-      height: 200%;
+    .rays {
       background: repeating-linear-gradient(
-        80deg,
+        75deg,
         rgba(255,255,255,0.06),
         rgba(255,255,255,0.06) 2px,
-        transparent 6px,
-        transparent 12px
+        transparent 8px,
+        transparent 14px
       );
-      transform: translateZ(-300px);
-      animation: rays 18s linear infinite;
+      opacity: 0.6;
+      z-index: 3;
     }
 
-    @keyframes rays {
-      from { transform: translateZ(-300px) translateY(0); }
-      to   { transform: translateZ(-300px) translateY(300px); }
+    /* Foreground bubbles */
+    .bubbles {
+      z-index: 4;
+      pointer-events: none;
     }
 
-    /* Bubbles (depth layers) */
     .bubble {
       position: absolute;
-      bottom: -100px;
+      bottom: -50px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      animation: rise linear infinite;
+      background: rgba(255,255,255,0.3);
     }
 
-    @keyframes rise {
-      from { transform: translateY(0) translateZ(var(--z)); opacity: 0.6; }
-      to { transform: translateY(-120vh) translateZ(var(--z)); opacity: 0; }
+    /* Center content card */
+    .content {
+      position: relative;
+      z-index: 6;
+      padding: 45px 65px;
+      background: rgba(0,20,40,0.6);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      text-align: center;
     }
 
-    /* Center 3D card */
-    .core {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) translateZ(120px);
-      padding: 40px 50px;
-      border-radius: 16px;
-      background: rgba(0,20,40,0.65);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-    }
-
-    .core h1 {
-      font-size: 46px;
+    h1 {
+      font-size: 50px;
       color: #7dd3fc;
-      text-shadow: 0 0 25px rgba(125,211,252,0.7);
-      margin-bottom: 10px;
+      text-shadow: 0 0 30px rgba(125,211,252,0.8);
     }
 
-    .core p {
+    p {
       font-size: 18px;
       opacity: 0.9;
     }
@@ -93,25 +96,41 @@
 
 <body>
 
-  <div class="scene">
+<section>
+  <!-- BACKGROUND IMAGE -->
+  <div class="layer bg" data-speed="0.2"></div>
 
-    <div class="light"></div>
+  <!-- DARK DEPTH OVERLAY -->
+  <div class="layer overlay" data-speed="0.35"></div>
 
-    <!-- 3D bubbles -->
-    <div class="bubble" style="left:10%; width:14px; height:14px; --z:-200px; animation-duration:9s;"></div>
-    <div class="bubble" style="left:25%; width:8px; height:8px; --z:-50px; animation-duration:6s;"></div>
-    <div class="bubble" style="left:40%; width:20px; height:20px; --z:-300px; animation-duration:11s;"></div>
-    <div class="bubble" style="left:60%; width:12px; height:12px; --z:-100px; animation-duration:7s;"></div>
-    <div class="bubble" style="left:75%; width:18px; height:18px; --z:-250px; animation-duration:10s;"></div>
-    <div class="bubble" style="left:90%; width:10px; height:10px; --z:-80px; animation-duration:6s;"></div>
+  <!-- LIGHT RAYS -->
+  <div class="layer rays" data-speed="0.5"></div>
 
-    <!-- 3D center content -->
-    <div class="core">
-      <h1>🌊 Tryogen Prana</h1>
-      <p>Deep energy • innovation • future tech</p>
-    </div>
-
+  <!-- FOREGROUND BUBBLES -->
+  <div class="layer bubbles" data-speed="0.8">
+    <div class="bubble" style="left:20%; width:14px; height:14px;"></div>
+    <div class="bubble" style="left:45%; width:22px; height:22px;"></div>
+    <div class="bubble" style="left:70%; width:10px; height:10px;"></div>
   </div>
+
+  <!-- CENTER CONTENT -->
+  <div class="content" data-speed="0.95">
+    <h1>🌊 Tryogen Prana</h1>
+    <p>Scroll to feel real underwater depth</p>
+  </div>
+</section>
+
+<section></section>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    document.querySelectorAll("[data-speed]").forEach(layer => {
+      const speed = layer.getAttribute("data-speed");
+      layer.style.transform = `translateY(${y * speed}px)`;
+    });
+  });
+</script>
 
 </body>
 </html>
