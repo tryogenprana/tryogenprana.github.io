@@ -1,264 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Tryogen Prana</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3D Scrolling Molecular Website</title>
+<style>
+  /* Reset & Base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    perspective: 1500px; /* 3D perspective */
+    background: #001f2d;
+    color: #cce6ff;
+    overflow-x: hidden;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      background: #000814;
-      color: #e6f7ff;
-    }
+  /* Container to hold all pages */
+  .container {
+    height: 400vh; /* 4 pages */
+    scroll-behavior: smooth;
+  }
 
-    /* Scroll sections */
-    section {
-      position: relative;
-      height: 140vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  /* Each page style */
+  section {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 3rem;
+    backface-visibility: hidden; /* improve rendering */
+    transform-style: preserve-3d;
+    transition: transform 0.7s ease-out;
+  }
 
-    /* Parallax layers */
-    .layer {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      will-change: transform;
-    }
+  /* Background image with slight scaling */
+  .background-img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80vw;
+    max-width: 900px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    filter: brightness(70%) contrast(110%);
+    z-index: -1;
+    transition: filter 0.5s ease;
+  }
 
-    /* Deep background image (slowest) */
-    .bg {
-      background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
-      z-index: 1;
-    }
+  /* Styles for each page */
+  #page1 { background: rgba(0, 31, 45, 0.3); }
+  #page2 { background: rgba(0, 31, 45, 0.5); }
+  #page3 { background: rgba(0, 31, 45, 0.7); }
+  #page4 { background: rgba(0, 31, 45, 0.9); }
 
-    /* Blue overlay for depth */
-    .overlay {
-      background: radial-gradient(circle at center, rgba(0,20,60,0.5), rgba(0,0,0,0.85));
-      z-index: 2;
-    }
+  /* Title container style */
+  .content {
+    max-width: 700px;
+    padding: 20px;
+    background: rgba(0, 13, 20, 0.6);
+    border-radius: 15px;
+    box-shadow: 0 0 40px #00ffffaa;
+  }
 
-    /* Light rays */
-    .rays {
-      background: repeating-linear-gradient(
-        75deg,
-        rgba(255,255,255,0.06),
-        rgba(255,255,255,0.06) 2px,
-        transparent 8px,
-        transparent 14px
-      );
-      opacity: 0.6;
-      z-index: 3;
-    }
-
-    /* Foreground bubbles */
-    .bubbles {
-      z-index: 4;
-      pointer-events: none;
-    }
-
-    .bubble {
-      position: absolute;
-      bottom: -50px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-    }
-
-    /* Center content card */
-    .content {
-      position: relative;
-      z-index: 6;
-      padding: 45px 65px;
-      background: rgba(0,20,40,0.6);
-      border-radius: 18px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 50px;
-      color: #7dd3fc;
-      text-shadow: 0 0 30px rgba(125,211,252,0.8);
-    }
-
-    p {
-      font-size: 18px;
-      opacity: 0.9;
-    }
-  </style>
+  /* 3D transform on scroll */
+</style>
 </head>
-
 <body>
 
-<section>
-  <!-- BACKGROUND IMAGE -->
-  <div class="layer bg" data-speed="1.2"></div>
+<!-- Background image -->
+<img src="https://i.ibb.co/2ZsgR6C/molecular-structure.jpg" alt="Molecular Structure" class="background-img" />
 
-  <!-- DARK DEPTH OVERLAY -->
-  <div class="layer overlay" data-speed="1.35"></div>
-
-  <!-- LIGHT RAYS -->
-  <div class="layer rays" data-speed="1.5"></div>
-
-  <!-- FOREGROUND BUBBLES -->
-  <div class="layer bubbles" data-speed="0.8">
-    <div class="bubble" style="left:20%; width:14px; height:14px;"></div>
-    <div class="bubble" style="left:45%; width:22px; height:22px;"></div>
-    <div class="bubble" style="left:70%; width:10px; height:10px;"></div>
-  <div class="bubble" style="left:70%; width:10px; height:10px;"></div>
-
-  <!-- CENTER CONTENT -->
-  <div class="content" data-speed="0.95">
-    <h1> Tryogen Prana </h1>
-    <p>introduce you</p>
-  </div>
-</section>
-
-<section></section>
+<div class="container">
+  <section id="page1">
+    <div class="content">
+      <h1>Page 1</h1>
+      <p>Welcome to the molecular 3D scroll website.</p>
+    </div>
+  </section>
+  <section id="page2">
+    <div class="content">
+      <h1>Page 2</h1>
+      <p>Explore the molecular connections in depth.</p>
+    </div>
+  </section>
+  <section id="page3">
+    <div class="content">
+      <h1>Page 3</h1>
+      <p>Visualize the molecular structure in 3D space.</p>
+    </div>
+  </section>
+  <section id="page4">
+    <div class="content">
+      <h1>Page 4</h1>
+      <p>Thank you for visiting our molecular model.</p>
+    </div>
+  </section>
+</div>
 
 <script>
+  // Select all sections
+  const sections = document.querySelectorAll("section");
+  const background = document.querySelector('.background-img');
+
   window.addEventListener("scroll", () => {
-    const y = window.scrollY;
-    document.querySelectorAll("[data-speed]").forEach(layer => {
-      const speed = layer.getAttribute("data-speed");
-      layer.style.transform = `translateY(${y * speed}px)`;
+    const scrollY = window.scrollY;
+
+    sections.forEach((section, index) => {
+      // Calculate an offset for 3D rotation effect:
+      // rotateX as page scrolls and translateZ for depth
+      let offset = scrollY - index * window.innerHeight;
+      let rotationX = offset / 10; // control rotation
+      let translateZ = -Math.abs(offset) / 5; // control zoom effect
+
+      // Limit translateZ to prevent disappearing too far
+      translateZ = translateZ < -200 ? -200 : translateZ;
+
+      section.style.transform = `
+        translateZ(${translateZ}px)
+        rotateX(${rotationX}deg)
+      `;
     });
+
+    // Slight parallax effect on background image
+    background.style.transform = `translate(-50%, -50%) translateY(${scrollY * 0.2}px) scale(1.05)`;
   });
 </script>
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Underwater Bubble Background</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #001122, #004466);
-            overflow-x: hidden;
-            font-family: Arial, sans-serif;
-            color: white;
-            height: 100vh;
-        }
-        .ocean {
-            position: relative;
-            width: 100%;
-            min-height: 300vh; /* Allows for scrolling */
-            perspective: 1000px; /* Adds 3D perspective */
-            overflow: hidden;
-        }
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            animation: float 15s linear infinite;
-            transform-style: preserve-3d;
-        }
-        /* Vary bubble sizes, positions, and animation delays for randomness */
-        .bubble:nth-child(1) { width: 20px; height: 20px; left: 10%; bottom: 0; animation-duration: 12s; animation-delay: 0s; transform: translateZ(0); }
-        .bubble:nth-child(2) { width: 30px; height: 30px; left: 20%; bottom: 0; animation-duration: 18s; animation-delay: 2s; transform: translateZ(-50px); }
-        .bubble:nth-child(3) { width: 15px; height: 15px; left: 30%; bottom: 0; animation-duration: 10s; animation-delay: 4s; transform: translateZ(0); }
-        .bubble:nth-child(4) { width: 25px; height: 25px; left: 40%; bottom: 0; animation-duration: 14s; animation-delay: 1s; transform: translateZ(-100px); }
-        .bubble:nth-child(5) { width: 35px; height: 35px; left: 50%; bottom: 0; animation-duration: 20s; animation-delay: 3s; transform: translateZ(0); }
-        .bubble:nth-child(6) { width: 18px; height: 18px; left: 60%; bottom: 0; animation-duration: 16s; animation-delay: 5s; transform: translateZ(-75px); }
-        .bubble:nth-child(7) { width: 28px; height: 28px; left: 70%; bottom: 0; animation-duration: 11s; animation-delay: 0.5s; transform: translateZ(0); }
-        .bubble:nth-child(8) { width: 22px; height: 22px; left: 80%; bottom: 0; animation-duration: 13s; animation-delay: 2.5s; transform: translateZ(-25px); }
-        .bubble:nth-child(9) { width: 32px; height: 32px; left: 90%; bottom: 0; animation-duration: 17s; animation-delay: 1.5s; transform: translateZ(0); }
-        .bubble:nth-child(10) { width: 16px; height: 16px; left: 15%; bottom: 0; animation-duration: 19s; animation-delay: 3.5s; transform: translateZ(-150px); }
-        .bubble:nth-child(11) { width: 24px; height: 24px; left: 25%; bottom: 0; animation-duration: 15s; animation-delay: 4.5s; transform: translateZ(0); }
-        .bubble:nth-child(12) { width: 26px; height: 26px; left: 35%; bottom: 0; animation-duration: 12s; animation-delay: 0.8s; transform: translateZ(-50px); }
-        .bubble:nth-child(13) { width: 19px; height: 19px; left: 45%; bottom: 0; animation-duration: 18s; animation-delay: 2.2s; transform: translateZ(0); }
-        .bubble:nth-child(14) { width: 31px; height: 31px; left: 55%; bottom: 0; animation-duration: 14s; animation-delay: 1.8s; transform: translateZ(-100px); }
-        .bubble:nth-child(15) { width: 21px; height: 21px; left: 65%; bottom: 0; animation-duration: 16s; animation-delay: 3.2s; transform: translateZ(0); }
-        .bubble:nth-child(16) { width: 27px; height: 27px; left: 75%; bottom: 0; animation-duration: 11s; animation-delay: 0.3s; transform: translateZ(-75px); }
-        .bubble:nth-child(17) { width: 23px; height: 23px; left: 85%; bottom: 0; animation-duration: 13s; animation-delay: 2.7s; transform: translateZ(0); }
-        .bubble:nth-child(18) { width: 29px; height: 29px; left: 5%; bottom: 0; animation-duration: 17s; animation-delay: 1.3s; transform: translateZ(-25px); }
-        .bubble:nth-child(19) { width: 17px; height: 17px; left: 95%; bottom: 0; animation-duration: 19s; animation-delay: 3.7s; transform: translateZ(0); }
-        .bubble:nth-child(20) { width: 33px; height: 33px; left: 50%; bottom: 0; animation-duration: 15s; animation-delay: 4.2s; transform: translateZ(-150px); }
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        .content {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="ocean">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-      <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-    </div>
-    <div class="content">
-        <h1>Underwater Adventure</h1>
-        <p>Scroll down to see the bubbles rise in 3D!</p>
-        <p>This is a simple HTML-only page with CSS animations for an underwater bubble background. The bubbles float upwards with varying speeds and depths for a 3D effect.</p>
-        <p>More content here to enable scrolling...</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </div>
 </body>
 </html>
