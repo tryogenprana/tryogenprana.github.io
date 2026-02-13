@@ -98,13 +98,13 @@
 
 <section>
   <!-- BACKGROUND IMAGE -->
-  <div class="layer bg" data-speed="0.2"></div>
+  <div class="layer bg" data-speed="1.2"></div>
 
   <!-- DARK DEPTH OVERLAY -->
-  <div class="layer overlay" data-speed="0.35"></div>
+  <div class="layer overlay" data-speed="1.35"></div>
 
   <!-- LIGHT RAYS -->
-  <div class="layer rays" data-speed="0.5"></div>
+  <div class="layer rays" data-speed="1.5"></div>
 
   <!-- FOREGROUND BUBBLES -->
   <div class="layer bubbles" data-speed="0.8">
@@ -115,8 +115,8 @@
 
   <!-- CENTER CONTENT -->
   <div class="content" data-speed="0.95">
-    <h1>🌊 Tryogen Prana</h1>
-    <p>Scroll to feel real underwater depth</p>
+    <h1> Tryogen Prana </h1>
+    <p>introduce you</p>
   </div>
 </section>
 
@@ -132,5 +132,113 @@
   });
 </script>
 
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Underwater Bubble Background</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #001122, #004466);
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            height: 100vh;
+        }
+        .ocean {
+            position: relative;
+            width: 100%;
+            min-height: 300vh; /* Allows for scrolling */
+            perspective: 1000px; /* Adds 3D perspective */
+            overflow: hidden;
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: float 15s linear infinite;
+            transform-style: preserve-3d;
+        }
+        /* Vary bubble sizes, positions, and animation delays for randomness */
+        .bubble:nth-child(1) { width: 20px; height: 20px; left: 10%; bottom: 0; animation-duration: 12s; animation-delay: 0s; transform: translateZ(0); }
+        .bubble:nth-child(2) { width: 30px; height: 30px; left: 20%; bottom: 0; animation-duration: 18s; animation-delay: 2s; transform: translateZ(-50px); }
+        .bubble:nth-child(3) { width: 15px; height: 15px; left: 30%; bottom: 0; animation-duration: 10s; animation-delay: 4s; transform: translateZ(0); }
+        .bubble:nth-child(4) { width: 25px; height: 25px; left: 40%; bottom: 0; animation-duration: 14s; animation-delay: 1s; transform: translateZ(-100px); }
+        .bubble:nth-child(5) { width: 35px; height: 35px; left: 50%; bottom: 0; animation-duration: 20s; animation-delay: 3s; transform: translateZ(0); }
+        .bubble:nth-child(6) { width: 18px; height: 18px; left: 60%; bottom: 0; animation-duration: 16s; animation-delay: 5s; transform: translateZ(-75px); }
+        .bubble:nth-child(7) { width: 28px; height: 28px; left: 70%; bottom: 0; animation-duration: 11s; animation-delay: 0.5s; transform: translateZ(0); }
+        .bubble:nth-child(8) { width: 22px; height: 22px; left: 80%; bottom: 0; animation-duration: 13s; animation-delay: 2.5s; transform: translateZ(-25px); }
+        .bubble:nth-child(9) { width: 32px; height: 32px; left: 90%; bottom: 0; animation-duration: 17s; animation-delay: 1.5s; transform: translateZ(0); }
+        .bubble:nth-child(10) { width: 16px; height: 16px; left: 15%; bottom: 0; animation-duration: 19s; animation-delay: 3.5s; transform: translateZ(-150px); }
+        .bubble:nth-child(11) { width: 24px; height: 24px; left: 25%; bottom: 0; animation-duration: 15s; animation-delay: 4.5s; transform: translateZ(0); }
+        .bubble:nth-child(12) { width: 26px; height: 26px; left: 35%; bottom: 0; animation-duration: 12s; animation-delay: 0.8s; transform: translateZ(-50px); }
+        .bubble:nth-child(13) { width: 19px; height: 19px; left: 45%; bottom: 0; animation-duration: 18s; animation-delay: 2.2s; transform: translateZ(0); }
+        .bubble:nth-child(14) { width: 31px; height: 31px; left: 55%; bottom: 0; animation-duration: 14s; animation-delay: 1.8s; transform: translateZ(-100px); }
+        .bubble:nth-child(15) { width: 21px; height: 21px; left: 65%; bottom: 0; animation-duration: 16s; animation-delay: 3.2s; transform: translateZ(0); }
+        .bubble:nth-child(16) { width: 27px; height: 27px; left: 75%; bottom: 0; animation-duration: 11s; animation-delay: 0.3s; transform: translateZ(-75px); }
+        .bubble:nth-child(17) { width: 23px; height: 23px; left: 85%; bottom: 0; animation-duration: 13s; animation-delay: 2.7s; transform: translateZ(0); }
+        .bubble:nth-child(18) { width: 29px; height: 29px; left: 5%; bottom: 0; animation-duration: 17s; animation-delay: 1.3s; transform: translateZ(-25px); }
+        .bubble:nth-child(19) { width: 17px; height: 17px; left: 95%; bottom: 0; animation-duration: 19s; animation-delay: 3.7s; transform: translateZ(0); }
+        .bubble:nth-child(20) { width: 33px; height: 33px; left: 50%; bottom: 0; animation-duration: 15s; animation-delay: 4.2s; transform: translateZ(-150px); }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="ocean">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+    <div class="content">
+        <h1>Underwater Adventure</h1>
+        <p>Scroll down to see the bubbles rise in 3D!</p>
+        <p>This is a simple HTML-only page with CSS animations for an underwater bubble background. The bubbles float upwards with varying speeds and depths for a 3D effect.</p>
+        <p>More content here to enable scrolling...</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
 </body>
 </html>
